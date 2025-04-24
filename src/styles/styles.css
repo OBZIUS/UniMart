@@ -1,217 +1,146 @@
 /* App.css */
-/* styles.css or any other CSS file */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap'); 
 
-/* Now you can apply this font to your elements */
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/*NavBar*/
+/* NavBar */
 .navigation-bar {
-    position: relative;
-    width: 1440px;
-    height: 70px;
-    background-color: #ffffff;
-  }
-  
-  .navigation-bar .logo {
-    position: absolute;
-    width: 410px;
-    height: 100px;
-    top: 8px;
-    left: 500px;
-    
-  }
-  
-  .navigation-bar .user {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    top: 15px;
-    left: 1355px;
-    
-  }
+  position: relative;
+  width: 1440px;
+  height: 70px;
+  background-color: #fff;
+}
 
+.navigation-bar .logo {
+  position: absolute;
+  width: 410px;
+  height: 100px;
+  top: 8px;
+  left: 500px;
+}
 
-  
-  
+.navigation-bar .user {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 15px;
+  left: 1355px;
+}
+
 /* MainPage */
 .frame {
-    display: inline-flex;
-    flex-direction: column;
-    height: 500px;
-    align-items: flex-start;
-    gap: 43px;
-    position: relative;
-    padding-top: 90px; 
-    padding-left: 50px;
-  }
-  
-  .frame .text-wrapper {
-    position: relative;
-    width: 531px;
-    margin-top: -1.00px;
-    font-weight: 500;
-    color: #000000;
-    font-size: 30px;
-    letter-spacing: 0;
-    line-height: normal;
-    background-color: #D6CA98;
-  }
-  
-  .frame .button {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    width: 133px;
-    height: 62px;
-    align-items: flex-start;
-    position: relative;
-    border-radius: 33.99px;
-  }
-  
-  .frame .label-wrapper {
-    all: unset;
-    box-sizing: border-box;
-    display: inline-flex;
-    gap: 8.94px;
-    padding: 17.89px 31.31px;
-    flex: 0 0 auto;
-    border-radius: 52.01px;
-    align-items: flex-start;
-    position: relative;
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.2) 100%
-      ), linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(
-        0deg,
-        rgba(170, 131, 131, 1) 0%,
-        rgba(170, 131, 131, 1) 100%
-      );
-    background-color: var(--main-dark);
-  }
-  
-  .frame .label {
-    position: relative;
-    width: fit-content;
-    margin-top: -0.89px;
-    font-weight: 400;
-    color: #ffffff;
-    font-size: 17.9px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: 25.0px;
-    white-space: nowrap;
-  }
-  
-  .frame .div-wrapper {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
-    width: 133px;
-    height: 61px;
-    gap: 9.06px;
-    padding: 18.11px 31.7px;
-    border-radius: 50px;
-    align-items: flex-start;
-    position: relative;
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.2) 100%
-      ), linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-      linear-gradient(
-        0deg,
-        rgba(170, 131, 131, 1) 0%,
-        rgba(170, 131, 131, 1) 100%
-      );
-    background-color: var(--main-dark);
-  }
-  
-  .frame .div {
-    position: relative;
-    width: fit-content;
-    margin-top: -0.91px;
-    margin-bottom: -0.32px;
-    margin-right: -7.40px;
-    font-weight: 400;
-    color: #ffffff;
-    font-size: 18.1px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: 25.4px;
-    white-space: nowrap;
-  }
-  
-  .frame .save-big-shop-smart {
-    position: relative;
-    width: 511px;
-    height: 131px;
-    margin-bottom: -7.00px;
-    font-weight: 500;
-    color: #000000;
-    font-size: 20px;
-    letter-spacing: 0;
-    line-height: normal;
-    background-color: #D6CA98;
-  }
+  display: inline-flex;
+  flex-direction: column;
+  height: 500px;
+  align-items: flex-start;
+  gap: 43px;
+  position: relative;
+  padding: 90px 0 0 50px;
+}
 
-  .MainPage{
-    display: flex;
-  }
-  .ShoppingCart{
-    position: absolute;
-    width: 475px;
-    height: 475px;
-    padding-top: 90px;
-    padding-left: 850px;
-  }
+.frame .text-wrapper {
+  position: relative;
+  width: 531px;
+  margin-top: -1px;
+  font-weight: 500;
+  color: #000;
+  font-size: 30px;
+  background-color: #D6CA98;
+}
 
-  .heading-subheading{
-    display: flex;
-  }
-  .WhatWeOffer{
-    height: 10px;
-    width: 160px;
-    font-size: larger;
-    
-  }
-  div.text-wrapper{
+.frame .button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  width: 133px;
+  height: 62px;
+  align-items: flex-start;
+  position: relative;
+  border-radius: 33.99px;
+}
+
+.frame .label-wrapper,
+.frame .div-wrapper {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 9px;
+  padding: 18px 31px;
+  align-items: flex-start;
+  position: relative;
+  border-radius: 50px;
+  background: black;
+  color: #fff;
+}
+
+.frame .label,
+.frame .div {
+  position: relative;
+  width: fit-content;
+  margin-top: -0.9px;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: center;
+  line-height: 25px;
+  white-space: nowrap;
+}
+
+.frame .div {
+  margin-bottom: -0.32px;
+  margin-right: -7.4px;
+}
+
+.frame .save-big-shop-smart {
+  position: relative;
+  width: 511px;
+  height: 131px;
+  margin-bottom: -7px;
+  font-weight: 500;
+  color: #000;
+  font-size: 20px;
+  background-color: #D6CA98;
+}
+
+.MainPage {
+  display: flex;
+}
+
+.ShoppingCart {
+  position: absolute;
+  width: 475px;
+  height: 475px;
+  padding: 90px 0 0 850px;
+}
+
+.heading-subheading {
+  display: flex;
+}
+
+.WhatWeOffer {
+  height: 10px;
+  width: 160px;
+  font-size: larger;
+}
+
+div.heading {
+  padding: 70px 0 0 50px;
+  font-size: larger;
+}
+
+p.Tagline {
+  padding-top: 35px;
+  font-size: larger;
+  width: 450px;
+  height: 60px;
+}
+
+.Arrow {
+  width: 700px;
+  height: 125px;
+  padding-top: 20px;
+}
+.text-wrapper{
     background-color: #D6CA98;
-    
-  }
-  div.heading{
-    padding-top: 70px;
-    padding-left: 50px;
-    font-size: larger;
-  }
-  p.Tagline{
-    padding-top: 35px;
-    font-size: larger;
-    width: 450px;
-    height: 60px;
-  }
-  .Arrow{
-    width: 700px;
-    height: 125px;
-    padding-top: 20px;
-  }
+}
