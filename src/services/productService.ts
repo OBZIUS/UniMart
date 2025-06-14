@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { compressImage } from '@/utils/imageCompression';
 
@@ -303,7 +302,7 @@ export const getUserProducts = async (page: number = 0, limit: number = 6): Prom
   }
 };
 
-// Real-time subscription for products
+// Enhanced real-time subscription for products with dashboard updates
 export const subscribeToProducts = (callback: (payload: any) => void) => {
   const channel = supabase
     .channel('products-changes')
@@ -314,7 +313,18 @@ export const subscribeToProducts = (callback: (payload: any) => void) => {
         schema: 'public',
         table: 'products'
       },
-      callback
+      (payload) => {
+        console.log('Product change detected:', payload);
+        callback(payload);
+        
+        // Trigger custom event for dashboard updates
+        window.dispatchEvent(new CustomEvent('product-change', { 
+          detail: { 
+            type: payload.eventType, 
+            product: payload.new || payload.old 
+          } 
+        }));
+      }
     )
     .subscribe();
 

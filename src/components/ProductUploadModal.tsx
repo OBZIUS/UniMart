@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { createProduct, VALID_CATEGORIES } from '../services/productService';
 import { useAuth } from '../contexts/AuthContext';
 import { useProductCount } from '../hooks/useProductCount';
+import { Camera } from 'lucide-react';
 
 interface ProductUploadModalProps {
   isOpen: boolean;
@@ -16,6 +17,8 @@ interface ProductUploadModalProps {
   category?: string;
   onProductCreated: () => void;
 }
+
+const STORAGE_KEY = 'product_upload_draft';
 
 const ProductUploadModal: React.FC<ProductUploadModalProps> = ({ 
   isOpen, 
@@ -37,6 +40,28 @@ const ProductUploadModal: React.FC<ProductUploadModalProps> = ({
     image: null as File | null
   });
 
+  // Load draft from localStorage when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const savedDraft = localStorage.getItem(STORAGE_KEY);
+      if (savedDraft) {
+        try {
+          const parsedDraft = JSON.parse(savedDraft);
+          setFormData(prev => ({
+            ...prev,
+            name: parsedDraft.name || '',
+            description: parsedDraft.description || '',
+            market_price: parsedDraft.market_price || '',
+            selling_price: parsedDraft.selling_price || '',
+            category: category || parsedDraft.category || ''
+          }));
+        } catch (error) {
+          console.error('Error loading draft:', error);
+        }
+      }
+    }
+  }, [isOpen, category]);
+
   // Set category when modal opens from a specific category page
   useEffect(() => {
     if (category && VALID_CATEGORIES.includes(category)) {
@@ -51,9 +76,25 @@ const ProductUploadModal: React.FC<ProductUploadModalProps> = ({
     }
   }, [isOpen, isAuthenticated, refreshProductCount]);
 
-  const handleInputChange = useCallback((field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  // Save draft to localStorage whenever form data changes
+  const saveDraft = useCallback((data: typeof formData) => {
+    const draftData = {
+      name: data.name,
+      description: data.description,
+      market_price: data.market_price,
+      selling_price: data.selling_price,
+      category: data.category
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(draftData));
   }, []);
+
+  const handleInputChange = useCallback((field: string, value: string) => {
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value };
+      saveDraft(newData);
+      return newData;
+    });
+  }, [saveDraft]);
 
   const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -87,6 +128,53 @@ const ProductUploadModal: React.FC<ProductUploadModalProps> = ({
       };
       reader.readAsDataURL(file);
     }
+  }, [toast]);
+
+  const handleCameraCapture = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.capture = 'environment'; // Use rear camera on mobile
+    input.style.display = 'none';
+    
+    input.onchange = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+      if (file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          toast({
+            title: "Invalid file",
+            description: "Please select an image file.",
+            variant: "destructive"
+          });
+          return;
+        }
+
+        // Validate file size (35MB limit before compression)
+        if (file.size > 35 * 1024 * 1024) {
+          toast({
+            title: "File too large",
+            description: "Please select an image smaller than 35MB.",
+            variant: "destructive"
+          });
+          return;
+        }
+
+        setFormData(prev => ({ ...prev, image: file }));
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImagePreview(e.target?.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+      document.body.removeChild(input);
+    };
+    
+    document.body.appendChild(input);
+    input.click();
   }, [toast]);
 
   const validateForm = useCallback(() => {
@@ -187,8 +275,10 @@ const ProductUploadModal: React.FC<ProductUploadModalProps> = ({
         description: "Product uploaded successfully!",
       });
       
+      // Clear draft from localStorage on successful upload
+      localStorage.removeItem(STORAGE_KEY);
       resetForm();
-      refreshProductCount(); // Refresh count after successful upload
+      refreshProductCount();
       onProductCreated();
       onClose();
     } catch (error) {
@@ -224,6 +314,7 @@ const ProductUploadModal: React.FC<ProductUploadModalProps> = ({
       image: null
     });
     setImagePreview(null);
+    localStorage.removeItem(STORAGE_KEY);
   }, [category]);
 
   const handleClose = useCallback(() => {
@@ -368,15 +459,29 @@ const ProductUploadModal: React.FC<ProductUploadModalProps> = ({
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="productImage" className="text-sm font-medium">Product Image</Label>
-            <Input
-              id="productImage"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="rounded-xl"
-              disabled={isLimitReached}
-            />
+            <Label className="text-sm font-medium">Product Image</Label>
+            
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCameraCapture}
+                disabled={isLimitReached}
+                className="flex items-center gap-2 rounded-xl flex-1"
+              >
+                <Camera size={16} />
+                Take Photo
+              </Button>
+              
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="rounded-xl flex-1"
+                disabled={isLimitReached}
+              />
+            </div>
+            
             {imagePreview && (
               <div className="mt-2">
                 <img 
