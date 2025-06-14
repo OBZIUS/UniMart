@@ -100,6 +100,7 @@ export const markDealComplete = async (notificationId: string): Promise<{ succes
 
     console.log('Marking deal complete for notification:', notificationId, 'by user:', session.user.id);
 
+    // Use the updated complete_deal function that handles image cleanup
     const { data, error } = await supabase.rpc('complete_deal', {
       notification_id: notificationId,
       user_id: session.user.id
@@ -123,6 +124,12 @@ export const markDealComplete = async (notificationId: string): Promise<{ succes
     }
 
     console.log('Deal completion result:', result);
+    
+    // Log when deal is fully completed and cleanup happens
+    if (result.deal_completed) {
+      console.log('Deal fully completed - product and image have been removed from backend');
+    }
+    
     return result;
   } catch (error) {
     console.error('Error in markDealComplete:', error);

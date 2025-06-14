@@ -265,6 +265,10 @@ export type Database = {
         Args: { notification_id: string; user_id: string }
         Returns: Json
       }
+      delete_product_with_cleanup: {
+        Args: { product_uuid: string }
+        Returns: boolean
+      }
       delete_user_and_data: {
         Args: { user_uuid: string }
         Returns: undefined

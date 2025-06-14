@@ -176,8 +176,8 @@ const NotificationBell: React.FC<NotificationBellProps> = ({ onDealCompleted, on
                     <p className="text-green-600 text-xs">✅ Buyer has confirmed their intent</p>
                   </div>
 
-                  <p className="text-sm text-gray-600">
-                    Only press "Mark Deal" once you receive the payment.
+                  <p className="text-sm text-red-600 font-medium">
+                    Mark the deal once you receive the money! This will remove your listed product from the website.
                   </p>
 
                   <div className="flex gap-2">

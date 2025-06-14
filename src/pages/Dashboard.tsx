@@ -186,14 +186,7 @@ const Dashboard = React.memo(() => {
         
         {/* Horizontal Header for all screen sizes */}
         <header className="flex items-center justify-between p-3 relative z-20 bg-gray-50 md:p-6">
-          <div className="flex items-center space-x-2">
-            <Button 
-              onClick={handleGoHome}
-              variant="ghost" 
-              className="flex items-center space-x-1 rounded-full text-sm px-2 md:text-base md:px-4"
-            >
-              <span>← Back</span>
-            </Button>
+          <div className="flex items-center space-x-2 cursor-pointer" onClick={handleGoHome}>
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-unigreen to-green-600 rounded-full flex items-center justify-center md:w-10 md:h-10">
                 <span className="text-white font-bold text-sm md:text-base">U</span>
@@ -233,14 +226,7 @@ const Dashboard = React.memo(() => {
       
       {/* Horizontal Header for all screen sizes */}
       <header className="flex items-center justify-between p-3 relative z-20 bg-gray-50 md:p-6">
-        <div className="flex items-center space-x-2">
-          <Button 
-            onClick={handleGoHome}
-            variant="ghost" 
-            className="flex items-center space-x-1 rounded-full text-sm px-2 md:text-base md:px-4"
-          >
-            <span>← Back</span>
-          </Button>
+        <div className="flex items-center space-x-2 cursor-pointer" onClick={handleGoHome}>
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-unigreen to-green-600 rounded-full flex items-center justify-center md:w-10 md:h-10">
               <span className="text-white font-bold text-sm md:text-base">U</span>
@@ -278,47 +264,53 @@ const Dashboard = React.memo(() => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
-          {/* Profile Section */}
+          {/* Profile Section - Fixed for mobile alignment */}
           <div className="lg:col-span-3 space-y-4 md:space-y-6">
             <div className="bg-white rounded-3xl p-4 md:p-6 shadow-lg">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4 md:mb-6">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center relative mx-auto sm:mx-0 overflow-hidden shadow-md">
+              {/* Mobile-optimized profile layout */}
+              <div className="flex flex-col items-center space-y-4 mb-4 md:mb-6 sm:flex-row sm:items-start sm:space-y-0 sm:space-x-4 sm:text-left">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center relative overflow-hidden shadow-md flex-shrink-0">
                   <img 
-                    src="/images/71d387f8-8e9a-4a69-87d5-d9f47b02941e.png" 
+                    src="/lovable-uploads/71d387f8-8e9a-4a69-87d5-d9f47b02941e.png" 
                     alt="User profile" 
                     className="w-full h-full object-cover rounded-full"
                   />
-                  <div className="absolute ml-8 md:ml-12 mt-8 md:mt-12 w-5 h-5 md:w-6 md:h-6 bg-peach rounded-full flex items-center justify-center">
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-peach rounded-full flex items-center justify-center">
                     <span className="text-white text-xs">✓</span>
                   </div>
                 </div>
-                <div className="flex-1 text-center sm:text-left">
-                  <h2 className="text-lg md:text-xl font-recoleta font-semibold">
+                
+                <div className="flex-1 text-center sm:text-left min-w-0">
+                  <h2 className="text-xl md:text-2xl font-recoleta font-semibold mb-1 break-words">
                     {profileName}
                   </h2>
-                  <p className="text-gray-600 text-sm md:text-base">{profileEmail}</p>
-                  {currentProfile?.phone && (
-                    <p className="text-gray-500 text-xs md:text-sm">Phone: {currentProfile.phone}</p>
-                  )}
-                  {currentProfile?.room_number && (
-                    <p className="text-gray-500 text-xs md:text-sm">Room: {currentProfile.room_number}</p>
-                  )}
-                  {currentProfile?.academic_year && (
-                    <p className="text-gray-500 text-xs md:text-sm">Academic Year: {currentProfile.academic_year}</p>
-                  )}
+                  <p className="text-gray-600 text-sm md:text-base mb-2 break-all">{profileEmail}</p>
+                  
+                  {/* Profile details in a more organized layout for mobile */}
+                  <div className="space-y-1 text-xs md:text-sm text-gray-500">
+                    {currentProfile?.phone && (
+                      <p className="break-all">📱 {currentProfile.phone}</p>
+                    )}
+                    {currentProfile?.room_number && (
+                      <p>🏠 Room {currentProfile.room_number}</p>
+                    )}
+                    {currentProfile?.academic_year && (
+                      <p>🎓 {currentProfile.academic_year}</p>
+                    )}
+                  </div>
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+              <div className="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                 <Button 
                   onClick={handleEditProfile}
-                  className="bg-peach hover:bg-peach/90 text-white rounded-full text-sm md:text-base"
+                  className="bg-peach hover:bg-peach/90 text-white rounded-full text-sm md:text-base flex-1 sm:flex-none"
                 >
                   Edit Profile
                 </Button>
                 <Button 
                   onClick={handleAddListing}
-                  className="bg-unigreen hover:bg-unigreen/90 text-white rounded-full font-medium px-4 md:px-6 text-sm md:text-base"
+                  className="bg-unigreen hover:bg-unigreen/90 text-white rounded-full font-medium px-4 md:px-6 text-sm md:text-base flex-1 sm:flex-none"
                 >
                   Add Listing
                 </Button>

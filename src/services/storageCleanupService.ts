@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 
 export const cleanupOrphanedImages = async (): Promise<{ cleaned: number; errors: string[] }> => {
@@ -79,35 +78,9 @@ export const cleanupOrphanedImages = async (): Promise<{ cleaned: number; errors
   }
 };
 
+// This function is now deprecated since image deletion is handled by the database functions
+// but keeping it for backward compatibility
 export const deleteImageFromStorage = async (imageUrl: string): Promise<boolean> => {
-  try {
-    if (!imageUrl) return true;
-
-    // Extract the file path from the URL
-    const urlParts = imageUrl.split('/');
-    const productImagesIndex = urlParts.findIndex(part => part === 'product-images');
-    
-    if (productImagesIndex === -1 || productImagesIndex >= urlParts.length - 1) {
-      console.warn('Invalid image URL format:', imageUrl);
-      return false;
-    }
-
-    // Get the path after 'product-images/'
-    const filePath = urlParts.slice(productImagesIndex + 1).join('/');
-    
-    const { error } = await supabase.storage
-      .from('product-images')
-      .remove([filePath]);
-
-    if (error) {
-      console.error('Error deleting image from storage:', error);
-      return false;
-    }
-
-    console.log('Successfully deleted image from storage:', filePath);
-    return true;
-  } catch (error) {
-    console.error('Error in deleteImageFromStorage:', error);
-    return false;
-  }
+  console.log('deleteImageFromStorage is deprecated - image deletion is now handled by database functions');
+  return true;
 };

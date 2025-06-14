@@ -31,7 +31,6 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
   const [dealCanceled, setDealCanceled] = useState(false);
   const [currentNotificationId, setCurrentNotificationId] = useState<string | null>(null);
   const [sellerPhoneNumber, setSellerPhoneNumber] = useState<string | null>(null);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   // useEffect hooks for fetching seller phone and checking existing notification
   useEffect(() => {
@@ -92,7 +91,6 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
         } else if (data.buyer_marked) {
           setIsDealMarked(true);
           setDealCanceled(false);
-          setShowSuccessMessage(true);
         }
       }
     } catch (error) {
@@ -107,14 +105,13 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
       setCurrentNotificationId(newNotification.id);
       setIsDealMarked(true);
       setDealCanceled(false);
-      setShowSuccessMessage(true);
       
       // Call the parent callback but don't let it close the modal
       onDealMarked();
       
       // Show sonner toast at the top with 8 second duration and larger size
       toast("Deal Marked Successfully! 🎉", {
-        description: "Press the 'Buy Now' button again to get the seller's contact details and complete your purchase.",
+        description: "The seller has been informed and the call seller button is now unlocked. You can call the seller and get your product.",
         position: "top-center",
         action: {
           label: "Got it",
@@ -156,7 +153,6 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
     setIsDealMarked(false);
     setDealCanceled(false);
     setCurrentNotificationId(null);
-    setShowSuccessMessage(false);
     onClose();
   };
 
@@ -204,11 +200,10 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
             <Button 
               onClick={handleCallSeller}
               disabled={!isDealMarked || dealCanceled || !sellerPhoneNumber}
-              variant="outline"
               className={`flex items-center gap-2 ${
                 isDealMarked && !dealCanceled && sellerPhoneNumber
-                  ? 'border-green-500 text-green-700 hover:bg-green-50 hover:text-green-800' 
-                  : ''
+                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  : 'bg-gray-400 text-gray-600 cursor-not-allowed'
               }`}
             >
               <Phone className="w-4 h-4" />
@@ -216,18 +211,10 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
             </Button>
           </div>
 
-          {showSuccessMessage && !dealCanceled && (
-            <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
-              <p className="text-sm text-blue-700 font-medium">
-                🎉 Deal marked successfully! Press the "Buy Now" button again to get the seller's contact details and complete your purchase.
-              </p>
-            </div>
-          )}
-
-          {isDealMarked && !dealCanceled && !showSuccessMessage && (
+          {isDealMarked && !dealCanceled && (
             <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
               <p className="text-sm text-green-700">
-                Deal marked! The seller has been notified. You can also call the seller directly now.
+                The seller has been informed and the call seller button is now unlocked. You can call the seller and get your product.
               </p>
             </div>
           )}

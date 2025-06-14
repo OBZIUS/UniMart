@@ -1,6 +1,5 @@
 
 import { supabase } from '@/integrations/supabase/client';
-import { deleteImageFromStorage } from './storageCleanupService';
 
 export const deleteProduct = async (productId: string, imageUrl?: string): Promise<void> => {
   try {
@@ -10,25 +9,23 @@ export const deleteProduct = async (productId: string, imageUrl?: string): Promi
       throw new Error('User not authenticated');
     }
 
-    // Delete the product from database (with user_id verification via RLS)
-    const { error: deleteError } = await supabase
-      .from('products')
-      .delete()
-      .eq('id', productId)
-      .eq('user_id', session.user.id);
+    console.log('Deleting product with cleanup:', productId);
 
-    if (deleteError) {
-      console.error('Error deleting product:', deleteError);
-      throw new Error(`Failed to delete product: ${deleteError.message}`);
+    // Use the new secure function that handles both product and image deletion
+    const { data, error } = await supabase.rpc('delete_product_with_cleanup', {
+      product_uuid: productId
+    });
+
+    if (error) {
+      console.error('Error deleting product with cleanup:', error);
+      throw new Error(`Failed to delete product: ${error.message}`);
     }
 
-    // Delete associated image from storage if it exists
-    if (imageUrl) {
-      const imageDeleted = await deleteImageFromStorage(imageUrl);
-      if (!imageDeleted) {
-        console.warn('Failed to delete image from storage, but product was deleted successfully');
-      }
+    if (!data) {
+      throw new Error('Product deletion failed - no response from server');
     }
+
+    console.log('Product and image successfully deleted from backend');
   } catch (error) {
     console.error('Error in deleteProduct:', error);
     throw error;
