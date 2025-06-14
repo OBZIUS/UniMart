@@ -7,7 +7,6 @@
 ## 🚀 Features
 
 - 📦 **Product Listings**: Upload products with images, pricing, category tags, and descriptions.
-- 🔐 **Secure Auth**: OTP-based authentication via Supabase edge functions.
 - 🧃 **Category Pages**: Filter products by categories like Stationary, Munchies, Electronics, and more.
 - 🛍 **Optimized Product Feed**: Infinite scroll + cached fetching for blazing-fast browsing.
 - 🔔 **Smart Notifications**: Track deals, messages, and product interest with real-time updates.
