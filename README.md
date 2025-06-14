@@ -24,7 +24,6 @@
 | Frontend       | React, TypeScript, Tailwind CSS    |
 | Backend        | Supabase (Auth, DB, Edge Functions)|
 | UI Components  | shadcn/ui                          |
-| Auth           | Supabase Auth (Email OTP)          |
 | State / Hooks  | Custom React Hooks                 |
 | Image Handling | Image compression via browser utils|
 | Security       | Spam filters, secure API access    |
@@ -35,7 +34,7 @@
 
 | Name           | Role               | Email                                             | GitHub                                      |
 |----------------|--------------------|---------------------------------------------------|---------------------------------------------|
-| Aryan Kahate   | Founder & Developer| [aryankahate@gmail.com](mailto:aryankahate@gmail.com) | [@OBZIUS](https://github.com/OBZIUS)         |
+| Aryan Kahate   | Founder & Lead Developer| [aryankahate@gmail.com](mailto:aryankahate@gmail.com) | [@OBZIUS](https://github.com/OBZIUS)         |
 | Shashwat Verma | Design Lead        | [shashwatverma2911@gmail.com](mailto:shashwatverma2911@gmail.com) | [@soleilbrulant](https://github.com/soleilbrulant) |
 
 ---
