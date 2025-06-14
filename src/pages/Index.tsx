@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -93,7 +92,7 @@ const Index = () => {
             className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white hover:bg-gray-50 p-1 hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg overflow-hidden"
           >
             <img 
-              src="/images/71d387f8-8e9a-4a69-87d5-d9f47b02941e.png" 
+              src="/images/9aac6389-298a-420d-8832-0d2d85d62209.png" 
               alt="User profile" 
               className="w-full h-full object-cover rounded-full"
             />

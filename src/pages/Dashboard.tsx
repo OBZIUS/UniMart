@@ -271,7 +271,7 @@ const Dashboard = React.memo(() => {
               <div className="flex flex-col items-center space-y-4 mb-4 md:mb-6 sm:flex-row sm:items-start sm:space-y-0 sm:space-x-4 sm:text-left">
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center relative overflow-hidden shadow-md flex-shrink-0">
                   <img 
-                    src="/lovable-uploads/71d387f8-8e9a-4a69-87d5-d9f47b02941e.png" 
+                    src="/images/9aac6389-298a-420d-8832-0d2d85d62209.png" 
                     alt="User profile" 
                     className="w-full h-full object-cover rounded-full"
                   />

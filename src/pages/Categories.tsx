@@ -15,37 +15,37 @@ const Categories: React.FC = () => {
   const categories = [
     {
       name: 'Electronics',
-      image: '/lovable-uploads/496b6b8b-14d1-4873-b994-d9e2bc28ff28.png',
+      image: '/images/496b6b8b-14d1-4873-b994-d9e2bc28ff28.png',
       description: 'Tech gadgets and devices',
       route: '/electronics'
     },
     {
       name: 'Beauty & Personal Care',
-      image: '/lovable-uploads/5428b7b7-2790-4dd9-af38-891aed610a08.png',
+      image: '/images/5428b7b7-2790-4dd9-af38-891aed610a08.png',
       description: 'Skincare and wellness',
       route: '/beauty'
     },
     {
       name: 'Munchies',
-      image: '/lovable-uploads/75567ed8-2c7e-4de6-8d13-0b271186858e.png',
+      image: '/images/75567ed8-2c7e-4de6-8d13-0b271186858e.png',
       description: 'Snacks and treats',
       route: '/munchies'
     },
     {
       name: 'Stationary',
-      image: '/lovable-uploads/17a20097-4fc8-4d4e-a46c-b664b8613d1b.png',
+      image: '/images/17a20097-4fc8-4d4e-a46c-b664b8613d1b.png',
       description: 'Study supplies',
       route: '/stationary'
     },
     {
       name: 'Fruits & Veggies',
-      image: '/lovable-uploads/937c21db-e21b-4c3b-aa77-b63fa998652b.png',
+      image: '/images/937c21db-e21b-4c3b-aa77-b63fa998652b.png',
       description: 'Fresh and healthy options',
       route: '/fruits-veggies'
     },
     {
       name: 'Other Products',
-      image: '/lovable-uploads/e17b519a-997a-443d-9e08-af3170dabbf7.png',
+      image: '/images/e17b519a-997a-443d-9e08-af3170dabbf7.png',
       description: 'Various other items',
       route: '/other-products'
     }
