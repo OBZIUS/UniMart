@@ -1,4 +1,3 @@
-
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -8,8 +7,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import App from './App.tsx'
 import './index.css'
-import { AuthProvider } from './contexts/AuthContext.tsx'
-import { AuthSyncProvider } from './contexts/AuthSyncContext.tsx'
+import { AuthProvider } from './contexts/AuthContext'
+import { AuthSyncProvider } from './contexts/AuthSyncContext'
+import { ProductCountProvider } from './contexts/ProductCountContext'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,11 +26,13 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <AuthSyncProvider>
           <AuthProvider>
-            <TooltipProvider>
-              <App />
-              <Toaster />
-              <Sonner />
-            </TooltipProvider>
+            <ProductCountProvider>
+              <TooltipProvider>
+                <App />
+                <Toaster />
+                <Sonner />
+              </TooltipProvider>
+            </ProductCountProvider>
           </AuthProvider>
         </AuthSyncProvider>
       </BrowserRouter>
