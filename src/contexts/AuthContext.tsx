@@ -1,8 +1,8 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { Product } from '@/services/productService';
+import { useEmailVerification } from '@/hooks/useEmailVerification';
 
 interface UserProfile {
   id: string;
@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<Product[]>([]);
   const [favoriteItems, setFavoriteItems] = useState<Product[]>([]);
   const [purchasedItems, setPurchasedItems] = useState<Product[]>([]);
+  const { verifyEmail } = useEmailVerification();
 
   useEffect(() => {
     let mounted = true;
@@ -118,21 +119,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signIn = async (email: string, password: string) => {
+    console.log('🔐 Starting signIn process for:', email);
+    
     try {
+      // Verify email before attempting sign in
+      console.log('📧 Verifying email before signin...');
+      const verification = await verifyEmail(email, 'signin');
+      
+      console.log('📧 Email verification result:', verification);
+      
+      if (!verification.valid) {
+        console.error('❌ Email verification failed:', verification.error);
+        return { error: verification.error || 'Email verification failed' };
+      }
+
+      console.log('✅ Email verified, proceeding with signin...');
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
       
-      if (error) return { error: error.message };
+      if (error) {
+        console.error('❌ Supabase signin error:', error);
+        return { error: error.message };
+      }
       
+      console.log('✅ Signin successful');
       setUser(data.user);
       if (data.user) {
         await fetchUserProfile(data.user.id);
       }
       return {};
-    } catch (error) {
-      return { error: 'An unexpected error occurred' };
+    } catch (error: any) {
+      console.error('💥 Signin process error:', error);
+      return { error: 'An unexpected error occurred during signin' };
     }
   };
 
@@ -144,7 +165,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     roomNumber: string,
     academicYear: string
   ) => {
+    console.log('🔐 Starting signUp process for:', email);
+    
     try {
+      // Verify email before attempting sign up
+      console.log('📧 Verifying email before signup...');
+      const verification = await verifyEmail(email, 'signup');
+      
+      console.log('📧 Email verification result:', verification);
+      
+      if (!verification.valid) {
+        console.error('❌ Email verification failed:', verification.error);
+        return { error: verification.error || 'Email verification failed' };
+      }
+
+      console.log('✅ Email verified, proceeding with signup...');
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -158,12 +194,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       });
       
-      if (error) return { error: error.message };
+      if (error) {
+        console.error('❌ Supabase signup error:', error);
+        return { error: error.message };
+      }
       
+      console.log('✅ Signup successful');
       setUser(data.user);
       return {};
-    } catch (error) {
-      return { error: 'An unexpected error occurred' };
+    } catch (error: any) {
+      console.error('💥 Signup process error:', error);
+      return { error: 'An unexpected error occurred during signup' };
     }
   };
 
@@ -260,7 +301,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     signOut,
     updateProfile,
     refreshProfile,
-    logout: signOut, // Use the enhanced signOut
+    logout: signOut,
     addToCart,
     removeFromCart,
     clearCart,
