@@ -233,3 +233,5 @@ const BuyNowModal: React.FC<BuyNowModalProps> = ({
 };
 
 export default BuyNowModal;
+
+

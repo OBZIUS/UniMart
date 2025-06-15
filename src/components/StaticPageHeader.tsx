@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -7,9 +6,10 @@ interface StaticPageHeaderProps {
   title: string;
   emoji: string;
   onBackClick?: () => void;
+  showUserIcon?: boolean;
 }
 
-const StaticPageHeader = React.memo(({ title, emoji, onBackClick }: StaticPageHeaderProps) => {
+const StaticPageHeader = React.memo(({ title, emoji, onBackClick, showUserIcon = false }: StaticPageHeaderProps) => {
   const navigate = useNavigate();
 
   const handleBackClick = React.useCallback(() => {
@@ -26,13 +26,13 @@ const StaticPageHeader = React.memo(({ title, emoji, onBackClick }: StaticPageHe
 
   return (
     <>
-      <div className="absolute top-6 left-6 z-20">
+      <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
         <Button 
           onClick={handleBackClick}
           variant="ghost" 
-          className="flex items-center space-x-2 rounded-full hover:bg-white/80 hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg"
+          className="flex items-center justify-center w-10 h-10 md:w-auto md:h-auto md:space-x-2 rounded-full hover:bg-white/80 hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg md:px-4 md:py-2"
         >
-          <span>←</span>
+          <span className="text-lg md:text-base">←</span>
         </Button>
       </div>
 
@@ -44,18 +44,20 @@ const StaticPageHeader = React.memo(({ title, emoji, onBackClick }: StaticPageHe
           <h1 className="text-2xl font-recoleta font-semibold text-gray-800">{title} {emoji}</h1>
         </div>
         
-        <div className="absolute right-6 top-12">
-          <Button 
-            onClick={handleUserIconClick}
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white hover:bg-gray-50 p-1 hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg overflow-hidden"
-          >
-            <img 
-              src="/images/9aac6389-298a-420d-8832-0d2d85d62209.png" 
-              alt="User profile" 
-              className="w-full h-full object-cover rounded-full"
-            />
-          </Button>
-        </div>
+        {showUserIcon && (
+          <div className="absolute right-6 top-12">
+            <Button 
+              onClick={handleUserIconClick}
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white hover:bg-gray-50 p-1 hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg overflow-hidden"
+            >
+              <img 
+                src="/lovable-uploads/9aac6389-298a-420d-8832-0d2d85d62209.png" 
+                alt="User profile" 
+                className="w-full h-full object-cover rounded-full"
+              />
+            </Button>
+          </div>
+        )}
       </header>
     </>
   );

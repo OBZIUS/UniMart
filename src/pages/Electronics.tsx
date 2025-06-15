@@ -1,4 +1,3 @@
-
 import React, { useState, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -81,7 +80,7 @@ const Electronics = React.memo(() => {
       <FloatingIcons />
       <CursorPanda />
       
-      <StaticPageHeader title="Electronics" emoji="⚡" />
+      <StaticPageHeader title="Electronics" emoji="⚡" showUserIcon={false} />
       <StaticSearchBar 
         searchTerm={searchTerm} 
         onSearchChange={setSearchTerm} 
