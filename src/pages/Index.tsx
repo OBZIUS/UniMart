@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -17,9 +18,10 @@ const Index = () => {
   const [showContent, setShowContent] = useState(true);
   const fullText = 'Your Campus Marketplace Reimagined';
 
+  // Only set typed text once on mount
   useEffect(() => {
     setTypedText(fullText);
-  }, []);
+  }, []); // Empty dependency array to run only once
 
   const handleStartShopping = () => {
     if (isAuthenticated) {
@@ -92,7 +94,7 @@ const Index = () => {
             className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white hover:bg-gray-50 p-1 hover:scale-105 transition-all duration-200 ease-in-out shadow-md hover:shadow-lg overflow-hidden"
           >
             <img 
-              src="/images/9aac6389-298a-420d-8832-0d2d85d62209.png" 
+              src="/lovable-uploads/9aac6389-298a-420d-8832-0d2d85d62209.png" 
               alt="User profile" 
               className="w-full h-full object-cover rounded-full"
             />
@@ -172,7 +174,7 @@ const Index = () => {
           <div className={`relative transition-opacity duration-500 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
             <div className="relative z-10 animate-float">
               <img 
-                src="/images/99a9b824-e9a9-4288-9090-a75a7a1cc214.png" 
+                src="/lovable-uploads/99a9b824-e9a9-4288-9090-a75a7a1cc214.png" 
                 alt="Shopping icons" 
                 className="w-full max-w-md mx-auto rounded-3xl shadow-xl"
               />

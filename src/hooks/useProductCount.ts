@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { checkUserProductCount } from '../services/productLimitService';
@@ -12,14 +11,17 @@ export const useProductCount = () => {
   const lastFetchTimeRef = useRef(0);
   const mountedRef = useRef(true);
   const fetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastAuthStateRef = useRef(isAuthenticated);
+  const hasInitializedRef = useRef(false);
 
   const fetchProductCount = useCallback(async () => {
     if (!isAuthenticated || isFetching || !mountedRef.current) return;
 
-    // Rate limiting: don't fetch more than once per 1000ms
+    // Rate limiting: don't fetch more than once per 5000ms (increased from 3000ms)
     const now = Date.now();
-    if (now - lastFetchTimeRef.current < 1000) return;
+    if (now - lastFetchTimeRef.current < 5000) return;
 
+    console.log('Fetching product count from API');
     setIsLoading(true);
     setIsFetching(true);
     lastFetchTimeRef.current = now;
@@ -39,34 +41,50 @@ export const useProductCount = () => {
     }
   }, [isAuthenticated, isFetching, setIsFetching]);
 
-  // Debounced fetch with cleanup
+  // Only fetch when authentication state actually changes or on initial mount
   useEffect(() => {
-    if (!isAuthenticated) {
-      setProductCount(0);
-      return;
-    }
-
     // Clear any existing timeout
     if (fetchTimeoutRef.current) {
       clearTimeout(fetchTimeoutRef.current);
     }
 
-    // Set new timeout
-    fetchTimeoutRef.current = setTimeout(() => {
-      if (mountedRef.current) {
-        fetchProductCount();
+    // Only proceed if auth state actually changed or it's the first time
+    const authStateChanged = lastAuthStateRef.current !== isAuthenticated;
+    const isFirstLoad = !hasInitializedRef.current;
+    
+    if (authStateChanged || isFirstLoad) {
+      lastAuthStateRef.current = isAuthenticated;
+      hasInitializedRef.current = true;
+      
+      if (!isAuthenticated) {
+        setProductCount(0);
+        return;
       }
-    }, 500);
+
+      // Debounced fetch with longer delay to reduce API calls
+      fetchTimeoutRef.current = setTimeout(() => {
+        if (mountedRef.current) {
+          fetchProductCount();
+        }
+      }, 2000); // Increased from 1000ms to 2000ms
+    }
 
     return () => {
       if (fetchTimeoutRef.current) {
         clearTimeout(fetchTimeoutRef.current);
       }
     };
-  }, [isAuthenticated, fetchProductCount]);
+  }, [isAuthenticated]); // Remove fetchProductCount from dependencies to prevent re-renders
 
   const refresh = useCallback(() => {
-    lastFetchTimeRef.current = 0; // Reset rate limit
+    // Only allow manual refresh if enough time has passed
+    const now = Date.now();
+    if (now - lastFetchTimeRef.current < 3000) {
+      console.log('Refresh blocked - too frequent');
+      return;
+    }
+    
+    lastFetchTimeRef.current = 0; // Reset rate limit for manual refresh
     if (mountedRef.current) {
       fetchProductCount();
     }
