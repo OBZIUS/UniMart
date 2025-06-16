@@ -36,7 +36,7 @@
 
 | Name           | Role               | Email                                             | GitHub                                      |
 |----------------|--------------------|---------------------------------------------------|---------------------------------------------|
-| Aryan Kahate   | Founder & Lead Developer| [aryankahate@gmail.com](mailto:aryankahate007@gmail.com) | [@OBZIUS](https://github.com/OBZIUS)         |
+| Aryan Kahate   | Founder & Lead Developer| [aryankahate007@gmail.com](mailto:aryankahate007@gmail.com) | [@OBZIUS](https://github.com/OBZIUS)         |
 | Shashwat Verma | Design Lead        | [shashwatverma2911@gmail.com](mailto:shashwatverma2911@gmail.com) | [@soleilbrulant](https://github.com/soleilbrulant) |
 
 ---
