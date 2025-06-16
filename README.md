@@ -2,6 +2,8 @@
 
 **UniMart** is a university-centric digital marketplace built for students to **buy, sell, and discover** products within their campus community. Powered by **React**, **TypeScript**, **TailwindCSS**, and **Supabase**, the platform offers a smooth, secure, and scalable experience tailored for student needs.
 
+> 📽 **Demo:** Since UniMart is exclusive to verified campus users, account creation isn’t open to the public.  
+> To see how the platform works, [check out this walkthrough demo on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7339984651983187968/).
 ---
 
 ## 🚀 Features
